@@ -7,10 +7,11 @@
 //1. Napisz program sprawdzający, czy podana liczba jest parzysta czy nie. 
 
 static void task01()
-static void task1(int a, int b)
 {
-    Console.WriteLine($"HelloWorld {a}");
+    int choice = 0;
+
 }
+
 
 
 //2. Napisz program obliczający wartość wyrażenia 𝑎𝑏/𝑎+𝑏, gdzie a i b to parametry podane przez użytkownika. 
