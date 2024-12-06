@@ -5,7 +5,9 @@
 //Zadania 
 //Rozwiązując zadania pamiętaj o tym, żeby działały poprawnie niezależnie od tego co wpisze użytkownik! 
 //1. Napisz program sprawdzający, czy podana liczba jest parzysta czy nie. 
-static void EvenNumber(int a, int b)
+
+static void task01()
+static void task1(int a, int b)
 {
     Console.WriteLine($"HelloWorld {a}");
 }
