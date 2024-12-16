@@ -1,6 +1,6 @@
 ﻿//Zadania na zajęcia laboratoryjne: 
 using System;
-task01();
+//task05();
 
 //Zadanie 1  
 //Obliczyć wartość wyrażenia: (a^2+b)/(a+b)^2
@@ -18,13 +18,22 @@ static void task01()
 
         float licznik = (a * a + b);
         float mianownik = (a + b) * (a + b);
-
+        if (mianownik == 0)
+        {
+            Console.WriteLine("Nie można dzielić przez 0");
+        }
+        else
+        {
+            float wyrazenie = licznik / mianownik;
+            Console.WriteLine($"wartość wyrażenia: (a^2+b)/(a+b)^2 wynosi: {wyrazenie}");
+        }
     }
-    catch (DivideByZeroException)
+    catch (Exception ex)
     {
-        Console.WriteLine("Nie można dzielić przez 0");
+        Console.WriteLine(ex.Message);
     }
 }
+
 
 //Zadanie 2  
 //Wykorzystując zmienne typu double obliczyć wartość wyrażenia wynoszącą: 
@@ -33,49 +42,223 @@ static void task01()
 //1/(a-b) dla c = 0 
 //Sprawdzić wykonalność obliczenia. 
 
+static void task02()
+{
+    try
+    {
+        Console.WriteLine("Prosze podac wartosc a: ");
+        double a = double.Parse(Console.ReadLine());
+
+        Console.WriteLine("Prosze podac wartosc b: ");
+        double b = double.Parse(Console.ReadLine());
+
+        Console.WriteLine("Prosze podac wartosc c: ");
+        double c = double.Parse(Console.ReadLine());
+
+        if (c > 0)
+        {
+            double wynik = a * a + b;
+            Console.WriteLine($"Wynik a*a+b to: {wynik}");
+        }
+        else if (c < 0)
+        {
+            double wynik = a - b * b;
+            Console.WriteLine($"Wynik a-b*b to: {wynik}");
+        }
+        else if (c == 0 && (a - b) == 0)
+        {
+            Console.WriteLine("Nie można dzielić przez 0");
+        }
+        else
+        {
+            double wynik = 1 / (a - b);
+            Console.WriteLine($"Wynik 1/(a-b) to: {wynik}");
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+}
 
 
 //Zadanie 3 
 //Napisać program obliczania największego wspólnego dzielnika dwóch dodatnich liczb całkowitych. Wykorzystać algorytm 
 //Euklidesa nie używając operacji dzielenia. 
 
+static void task03()
+{
+    try
+    {
+        Console.WriteLine("Prosze podac pierwsza liczbe calkowita a: ");
+        int a = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Prosze podac druga liczbe calkowita b: ");
+        int b = int.Parse(Console.ReadLine());
+
+        if (a <= 0 || b <= 0)
+        {
+            Console.WriteLine("Obie liczby muszą być dodatnie całkowite i różne od 0");
+            return;
+        }
+
+        int wynik = NWD(a, b);
+        Console.WriteLine($"Największy wspólny dzielnik ({a}, {b}) to: {wynik}");
+
+        static int NWD(int a,int b)
+        {
+            while (a != b)
+            {
+                if ( a > b )
+                {
+                    a = a - b;
+                }
+                else
+                {
+                    b = b - a;
+                }
+            }
+            return a;
+        }
+
+    }
+    catch (FormatException)
+    {
+        Console.WriteLine("Błąd: Wprowadź poprawne liczby całkowite.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+}
 
 
 //Zadanie 4 
 //Napisać program obliczania sumy cyfr rozwinięcia dziesiętnego dla zadanej liczby naturalnej. 
 
+static void task04()
+{
+    try
+    {
+        Console.WriteLine("Prosze podac liczbe naturalna: ");
+        int a = int.Parse(Console.ReadLine());
+        int sum = 0;
+        if (a > 0)
+        {
+            while (a > 0)
+            {
+                int b = a % 10;
+                sum += b;
+                a = a / 10;
+            }
+            Console.WriteLine(sum);
+        }
+        else
+        {
+            Console.WriteLine("Błąd: Wprowadź poprawna liczbe naturalna.");
+        }  
+    }
+    catch (FormatException)
+    {
+        Console.WriteLine("Błąd: Wprowadź poprawna liczbe naturalna.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+}
 
 
 //Zadanie 5 
 //Napisać program badania czy zadana liczba jest liczbą pierwszą. Zminimalizować liczbę operacji dzielenia. 
 
-
-
 //Przykłady działania: 
 //Podaj liczbe:35 
 //Liczba 35 jest liczbą złożoną podzielną przez 5 
-
-
 
 //Podaj liczbe:17 
 //Liczba 17 jest liczbą pierwszą 
 //Przykładowe liczby pierwsze do testów (może być konieczne użycie typu ulong): 
 
+static void task05()
+{
+    try
+    {
+        Console.WriteLine("Prosze podac liczbe całkowitą większą od 0: ");
+        ulong a = ulong.Parse(Console.ReadLine());
 
+        if (a == 0)
+        {
+            Console.WriteLine("liczba musi być większa od 0");
+            return;
+        }
+        if (a > 3)
+        {
+            for (ulong i = 2; i < a; i++)
+            {
+                ulong b = a % i;
+                if (b == 0)
+                {
+                    Console.WriteLine($"Liczba {a} nie jest liczbą pierwszą i jest podzielna przez {i}");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"Liczba {a} jest liczbą pierwszą");
+                    break;
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Liczba {a} jest liczbą pierwszą");
+        }
+
+
+    }
+    catch (FormatException)
+    {
+        Console.WriteLine("Błąd: Wprowadź poprawna liczbe naturalna.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+}
+
+Console.WriteLine("Prosze podac liczbe całkowitą większą od 0: ");
+ulong a = ulong.Parse(Console.ReadLine());
+ulong divider;
+var result = JestLiczbaPierwsza(a, out divider);
+if (!result)
+{
+    Console.WriteLine($"Liczba {a} nie jest liczbą pierwszą i jest podzielna przez {divider}");
+} else
+{
+    Console.WriteLine($"Liczba {a} jest liczba pierwsza");
+}
+/// <summary> This property always returns a value &lt; 1.</summary>
+static bool JestLiczbaPierwsza(ulong number, out ulong divider) 
+{
+    divider = 0;
+    if (number <= 3) return true;
+    for (ulong i = 2; i < number; i++)
+    {
+        divider = i;
+        ulong b = number % i;
+        return b == 0 ? false : true;
+    }
+    return false;
+}
 //Zadanie 6 
-//Napisać program drukujący choinkę składającą się z gwiazdek według zadanej wysokości. Choinka ma rozpoczynać się od 
-//pojedynczej gwiazdki i zwiększać szerokość o 2 gwiazdki z każdym wierszem. Choinka ma mieć pień o wysokości dwóch 
+//Napisać program drukujący choinkę składającą się z gwiazdek według zadanej wysokości. Choinka ma rozpoczynać się od pojedynczej gwiazdki i zwiększać szerokość o 2 gwiazdki z każdym wierszem. Choinka ma mieć pień o wysokości dwóch 
 //znaków. Od początku wiersza figurę należy uzupełnić spacjami. 
-
-
 
 //Przykłady działania: 
 //Podaj wysokość choinki:1 
 //* 
 //| 
 //| 
-
-
 
 //Podaj wysokość choinki:5 
 //    * 
@@ -85,6 +268,30 @@ static void task01()
 //********* 
 //    |
 //    |
+
+static void task06()
+{
+    try
+    {
+        Console.WriteLine("Prosze podac wysokosc choinki: ");
+        int a = int.Parse(Console.ReadLine());
+
+        for (int i = 0; i < a; i++)
+        {
+            Console.WriteLine(new string(' ', (a - 1 - i)) + new string('*', i) + "*" + new string('*', i));
+        }
+        Console.WriteLine(new string(' ', (a - 1)) + "|");
+        Console.WriteLine(new string(' ', (a - 1)) + "|");
+    }
+    catch (FormatException)
+    {
+        Console.WriteLine("Błąd: Wprowadź poprawna liczbe dodatnia całkowitą.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Błąd: Wprowadź poprawna liczbe dodatnia całkowitą.");
+    }
+}
 
 
 //Zadanie 7
@@ -191,8 +398,8 @@ static void task01()
 
 
 //Zadanie 17 
-//Napisać program obliczania dla każdej liczby z ciągu podanych liczb naturalnych ( String.Split()) sumy cyfr jej rozwinięcia 
-//dziesiętnego. Zastosować metodę obliczania sumy cyfr rozwinięcia dziesiętnego pojedynczej liczby. Obsłużyć wyjątki. 
+//Napisać program obliczania dla każdej liczby z ciągu podanych liczb naturalnych ( String.Split()) sumy cyfr jej rozwinięcia
+//dziesiętnego. Zastosować metodę obliczania sumy cyfr rozwinięcia dziesiętnego pojedynczej liczby. Obsłużyć wyjątki
 
 
 
@@ -206,7 +413,7 @@ static void task01()
 
 
 //Zadanie 19 
-//W pliku wejściowym znajduje się ciąg liczb całkowitych. Napisać program, który po wprowadzeniu nazwy pliku obliczy i 
+// W pliku wejściowym znajduje się ciąg liczb całkowitych. Napisać program, który po wprowadzeniu nazwy pliku obliczy i 
 //wydrukuje średnią arytmetyczną liczb zawartych w pliku. Obsłużyć wyjątki. 
 
 
