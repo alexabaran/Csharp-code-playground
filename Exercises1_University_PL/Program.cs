@@ -1,6 +1,6 @@
 ﻿//Zadania na zajęcia laboratoryjne: 
 using System;
-//task05();
+task07();
 
 //Zadanie 1  
 //Obliczyć wartość wyrażenia: (a^2+b)/(a+b)^2
@@ -185,36 +185,19 @@ static void task05()
     try
     {
         Console.WriteLine("Prosze podac liczbe całkowitą większą od 0: ");
-        ulong a = ulong.Parse(Console.ReadLine());
 
-        if (a == 0)
+        ulong a = ulong.Parse(Console.ReadLine());
+        ulong divider;
+        var result = JestLiczbaPierwsza(a, out divider);
+
+        if (!result)
         {
-            Console.WriteLine("liczba musi być większa od 0");
-            return;
-        }
-        if (a > 3)
-        {
-            for (ulong i = 2; i < a; i++)
-            {
-                ulong b = a % i;
-                if (b == 0)
-                {
-                    Console.WriteLine($"Liczba {a} nie jest liczbą pierwszą i jest podzielna przez {i}");
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine($"Liczba {a} jest liczbą pierwszą");
-                    break;
-                }
-            }
+            Console.WriteLine($"Liczba {a} nie jest liczbą pierwszą i jest podzielna przez {divider}");
         }
         else
         {
-            Console.WriteLine($"Liczba {a} jest liczbą pierwszą");
+            Console.WriteLine($"Liczba {a} jest liczba pierwsza");
         }
-
-
     }
     catch (FormatException)
     {
@@ -226,18 +209,6 @@ static void task05()
     }
 }
 
-Console.WriteLine("Prosze podac liczbe całkowitą większą od 0: ");
-ulong a = ulong.Parse(Console.ReadLine());
-ulong divider;
-var result = JestLiczbaPierwsza(a, out divider);
-if (!result)
-{
-    Console.WriteLine($"Liczba {a} nie jest liczbą pierwszą i jest podzielna przez {divider}");
-} else
-{
-    Console.WriteLine($"Liczba {a} jest liczba pierwsza");
-}
-/// <summary> This property always returns a value &lt; 1.</summary>
 static bool JestLiczbaPierwsza(ulong number, out ulong divider) 
 {
     divider = 0;
@@ -298,13 +269,73 @@ static void task06()
 //Dla macierzy kwadratowej wprowadzanej z klawiatury wierszami zbadać, czy suma elementów powyżej głównej przekątnej 
 //jest większa od sumy elementów poniżej tej przekątnej. 
 
+static void task07()
+{
+    try
+    {
+        // Wczytanie rozmiaru macierzy
+        Console.WriteLine("Podaj rozmiar macierzy kwadratowej:");
+        int n = int.Parse(Console.ReadLine());
+
+        // Inicjalizacja macierzy
+        int[,] matrix = new int[n, n];
+
+        // Wczytanie elementów macierzy
+        Console.WriteLine("Podaj elementy macierzy (wierszami):");
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Console.WriteLine($"Pozycja [{i},{j}]:"); // i - nr kolumny, j - nr wiersza
+                matrix[i, j] = int.Parse(Console.ReadLine());
+            }
+        }
+
+        // Obliczanie sum powyżej i poniżej przekątnej
+        int sumAbove = 0, sumBelow = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                // Suma elementów powyżej głównej przekątnej
+                if (i < j)
+                {
+                    sumAbove += matrix[i, j];
+                }
+                // Suma elementów poniżej głównej przekątnej
+                else if (i > j)
+                {
+                    sumBelow += matrix[i, j];
+                }
+            }
+        }
+
+        // Porównanie sum
+        if (sumAbove > sumBelow)
+        {
+            Console.WriteLine($"Suma elementów powyżej przekątnej ({sumAbove}) jest większa od sumy poniżej ({sumBelow}).");
+        }
+        else if (sumAbove < sumBelow)
+        {
+            Console.WriteLine($"Suma elementów poniżej przekątnej ({sumBelow}) jest większa od sumy powyżej ({sumAbove}).");
+        }
+        else
+        {
+            Console.WriteLine($"Suma elementów powyżej ({sumAbove}) i poniżej przekątnej są równe ({sumBelow}).");
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+}
+
 
 //Zadanie 8 
 //Napisać program sortujący wprowadzane z klawiatury liczby całkowite rosnąco. Program powinien zapytać użytkownika o 
 //liczbę elementów do wprowadzenia <1,10>, zweryfikować wprowadzoną liczbę, wczytać liczby i wyprowadzić posortowane 
 //elementy. Obsłużyć wyjątki. 
-
-
 
 //Przykład działania: 
 //Wprowadź liczbę elementów do posortowania <1 .. 10>: -2 
@@ -320,6 +351,63 @@ static void task06()
 //Element [3]=4 
 //Element [4]=6 
 
+static void task08()
+{
+    try
+    {
+        Console.WriteLine("*** Program sortujący 1-10 liczb ***");
+
+        Console.WriteLine("Podaj liczbę elementów do wprowadzenia (od 1 do 10): ");
+        int n = int.Parse(Console.ReadLine());
+
+        if (n < 1 || n > 10)
+        {
+            Console.WriteLine("Liczba elementów musi być w zakresie od 1 do 10.");
+            return;
+        }
+
+        int[] array = new int[n];
+
+        Console.WriteLine($"Wprowadź {n} liczb całkowitych:");
+        for (int i = 0; i < n; i++)
+        {
+            Console.Write($"Podaj liczbę {i + 1}: ");
+            array[i] = int.Parse(Console.ReadLine());
+        }
+
+        Console.WriteLine("Posortowany zestaw liczb: ");
+        SortowanieLiczb(array, n);
+        ShowArray(array);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+}
+
+// Funkcja sortujaca - sortowanie babelkowe z algorytmow
+static void SortowanieLiczb(int[] array, int n)
+{
+    int end = n - 1;
+
+    for (int i = 0; i < array.Length - 1; i++)
+    {
+        for (int j = 0; j < end; j++)
+        {
+            if (array[j] > array[j + 1])
+            {
+                (array[j + 1], array[j]) = (array[j], array[j + 1]); //swap
+            }
+        }
+        end--;
+
+    }
+}
+// Funkcja drukujaca array
+static void ShowArray(int[] array)
+{
+    foreach (int item in array) Console.WriteLine(item);
+}
 
 
 //Zadanie 9 
@@ -330,7 +418,6 @@ static void task06()
 //Liczba 35 jest liczba złożoną podzielną przez 5 
 //Podaj liczbe:17 
 //Liczba 17 jest liczba pierwsza 
-
 
 
 //Zadanie 10 

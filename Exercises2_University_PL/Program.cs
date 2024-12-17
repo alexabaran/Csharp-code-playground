@@ -1,9 +1,8 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Xml.Serialization;
-taskD3();
+﻿//Odpalanie programu:
+task03();
 
 //Podstawy programowania – laboratorium 
+
 //02. Podstawy języka C# 
 //Zadania 
 //Rozwiązując zadania pamiętaj o tym, żeby działały poprawnie niezależnie od tego co wpisze użytkownik! 
@@ -96,7 +95,7 @@ static void task03()
     }
 }
 
-// Funkcja sortujaca - sortowanie babelkowe z algorytmow
+// Funkcja sortujaca - sortowanie babelkowe z algorytmow 
 static void Sortowanie3Liczb(float[] array)
 {
     int end = 2;
@@ -105,7 +104,7 @@ static void Sortowanie3Liczb(float[] array)
     {
         for (int j = 0; j < end; j++)
         {
-            if (array[j] > array[j + 1])
+            if (array[j] > array[j + 1]) // niemalejący porzadek
             {
                 (array[j + 1], array[j]) = (array[j], array[j + 1]); //swap
             }
@@ -611,7 +610,7 @@ static int NWW(int a, int b)
 }
 
 //3. Programy wypisujący trójkąt Pascala o podanej wysokości 
-
+// przyklad trojkata pascala
 //              1
 //             1 1 
 //            1 2 1
